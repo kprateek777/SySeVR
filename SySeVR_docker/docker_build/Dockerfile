@@ -1,9 +1,12 @@
 FROM tensorflow/tensorflow:1.6.0-devel-gpu-py3
 COPY ./home/ /home/
+
 RUN mkdir /usr/java \
 && cp -r /home/SySeVR/softdir/jdk1.8.0_161 /usr/java \
+&& chmod +x /usr/java/jdk1.8.0_161/bin/java \
 && mkdir /usr/ant \
 && cp -r /home/SySeVR/softdir/apache-ant-1.9.14 /usr/ant \
+&& chmod +x /usr/ant/apache-ant-1.9.14/bin/ant \
 && rm -rf /etc/apt/sources.list \
 && cp -r /home/SySeVR/softdir/sources.list /etc/apt/ \
 && rm -rf /etc/apt/sources.list.d \
@@ -21,6 +24,7 @@ RUN mkdir /usr/java \
 && python2 setup.py install \
 && cd /home/SySeVR/softdir/python-joern-0.3.1 \
 && python2 setup.py install \
+&& chmod +x /home/SySeVR/joern-0.3.1/bin/joern.jar \
 && apt-get install -y graphviz \
 && apt-get install -y libgraphviz-dev \
 && apt-get install -y pkg-config \
@@ -29,4 +33,4 @@ RUN mkdir /usr/java \
 && pip3 install xlrd \
 && pip3 install gensim==3.4 \
 && pip3 install pyyaml \
-&& rm -rf /home/SySeVR/softdir   
+&& rm -rf /home/SySeVR/softdir
